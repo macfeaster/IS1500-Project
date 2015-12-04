@@ -1,4 +1,4 @@
-/* mipslabmain.c
+ /* mipslabmain.c
 
    This file written 2015 by Axel Isaksson,
    modified 2015 by F Lundevall
@@ -50,12 +50,12 @@ int main(void) {
 	display_init();
 	display_string(0, "Welcome!");
 	display_update();
-	
-	labinit(); /* Do any lab-specific initialization */
+
+	init(); /* Do any lab-specific initialization */
 
 	while( 1 )
 	{
-	  labwork(); /* Do lab-specific things again and again */
+		work(); /* Do lab-specific things again and again */
 	}
 	return 0;
 }
