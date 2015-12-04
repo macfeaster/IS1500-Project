@@ -3,3 +3,4 @@
 *.hex
 .deps
 .DS_Store
+.idea
