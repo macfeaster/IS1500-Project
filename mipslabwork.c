@@ -14,15 +14,10 @@
 #include <pic32mx.h>  /* Declarations of system-specific addresses etc */
 #include "mipslab.h"  /* Declatations for these labs */
 
-int mytime = 0x5957;
-int timeoutcount = 0;
-int prime = 1; // 234567;
-
-char textstring[] = "text, more text, and even more text!";
-
 /* Interrupt Service Routine */
 void user_isr( void )
 {
+  // Example interrupt code
   if (IFS(0) & 0x100)
   {
     timeoutcount++;
@@ -30,7 +25,6 @@ void user_isr( void )
 
     if (timeoutcount == 10)
     {
-      time2string( textstring, mytime );
       display_string( 3, textstring );
       display_update();
       tick( &mytime );
@@ -81,7 +75,6 @@ void labinit( void )
 /* This function is called repetitively from the main program */
 void labwork( void )
 {
-  prime = nextprime( prime );
-  display_string( 0, itoaconv( prime ) );
+  display_string( 0, itoaconv( 3 ) );
   display_update();
 }
