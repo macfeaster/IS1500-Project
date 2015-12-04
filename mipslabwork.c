@@ -73,6 +73,6 @@ void labinit( void )
 /* This function is called repetitively from the main program */
 void labwork( void )
 {
-  display_string( 0, itoaconv( 3 ) );
+  display_string( 0, "HEI \\_('-')_/" );
   display_update();
 }
