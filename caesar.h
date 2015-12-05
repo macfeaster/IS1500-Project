@@ -6,6 +6,9 @@
 
    For copyright and licensing, see file COPYING */
 
+#include <stdint.h>   /* Declarations of uint_32 and the like */
+#include <pic32mx.h>  /* Declarations of system-specific addresses etc */
+
 /* Declare display-related functions from board/display.c */
 void display_image(int x, const uint8_t *data);
 void display_init(void);

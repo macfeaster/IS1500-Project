@@ -2,7 +2,10 @@
 
 char *curr_char = (char *) 'A';
 
-/**	
+#pragma clang diagnostic push
+#pragma ide diagnostic ignored "OCDFAInspection"
+#pragma clang diagnostic ignored "-Wfor-loop-analysis"
+/**
  *	Handles input from buttons. 
  *	Button 1: send message 
  *	Button 2: set char
@@ -10,7 +13,7 @@ char *curr_char = (char *) 'A';
  *		
  *	Only takes input from one button at a time
  */
-void button_control(int *transmitting) {
+void button_control(int *transmitting, char *message, char *curr_char, int *msg_len, int msg_max_len) {
 
 	volatile int btns = get_btns();
 
@@ -29,17 +32,17 @@ void button_control(int *transmitting) {
             // add the current character to the message buffer
 			case 2:
 				while(btns == 2){};
-				add_char();
+				add_char(message, msg_len, msg_max_len);
 				break;
 
 			case 4:
 				while(btns == 4){};
-				increment_char();
+				increment_char(curr_char, 1);
 				break;
 
 			case 8:
 				while(btns == 8){};
-				decrement_char();
+				decrement_char(curr_char, 1);
 				break;
 
 			default:
@@ -47,14 +50,15 @@ void button_control(int *transmitting) {
 		}
 	}
 }
+#pragma clang diagnostic pop
 
 /**
  *	Add next char to transmission message
  *	If message is already of max size nothing happens
  */
-void add_char(char *message, int *msg_len, int msg_max_size) {
+void add_char(char *message, int *msg_len, int msg_max_len) {
 
-	if (*msg_len < msg_max_size) {
+	if (*msg_len < msg_max_len) {
 		*msg_len = *msg_len + 1;
 		message[*msg_len] = *curr_char;
 	}
@@ -68,7 +72,8 @@ void increment_char(char *curr_char, int steps) {
 
     // Run the incrementation n steps
     // This should be replaced by a smarter algorithm later on
-    for (int i = 0; i < steps; ++i) {
+    int i;
+    for (i = 0; i < steps; ++i) {
 
         // Characters out of bound produce an A
         if ((int) *curr_char >= 90)
@@ -90,7 +95,8 @@ void decrement_char(char *curr_char, int steps) {
 
     // Run the decrementation n steps
     // This should be replaced by a smarter algorithm later on
-    for (int i = 0; i < steps; ++i) {
+    int i;
+    for (i = 0; i < steps; ++i) {
 
         // Characters out of bound produce a Z
         if ((int) *curr_char <= 65)
