@@ -3,9 +3,10 @@ project(c)
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c11")
 
-FILE(GLOB MyCSources *.c)
+FILE(GLOB FlatSources *.c)
+FILE(GLOB SubSources */*.c)
 
 include_directories(/Applications/mcb32tools.app/Contents/Resources/Toolchain/include/)
 
-set(SOURCE_FILES ${MyCSources})
+set(SOURCE_FILES ${FlatSources} ${SubSources})
 add_executable(c ${SOURCE_FILES})
