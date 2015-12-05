@@ -1,6 +1,6 @@
 #include <stdint.h>
 #include <pic32mx.h>
-#include "caesar.h"
+#include "../caesar.h"
 
 /**
  *	Returns integer representation of state of toggle 
