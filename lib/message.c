@@ -1,12 +1,7 @@
-char* current_char;
-char transm_msg[16];
-int* transm_msg_max_size;
-int* transm_msg_length;
+#include <zconf.h>
+#include "caesar.h"
 
-void add_char(void);
-void increment_char(void);
-void decrement_char(void);
-
+char *curr_char = (char *) 'A';
 
 /**	
  *	Handles input from buttons. 
@@ -24,13 +19,20 @@ void button_control(int *transmitting) {
 	// transmitting message, handle button actions
 	if (btns && !(*transmitting)) {
 		switch (btns) {
+
+            // If rightmost button (1) is pressed,
+            // turn transmission on
 			case 1:
 				*transmitting = 1;
 				break;
+
+            // If button 2 is pressed, wait for its release, then
+            // add the current character to the message buffer
 			case 2:
 				while(btns == 2){};
 				add_char();
 				break;
+
 			case 4:
 				while(btns == 4){};
 				increment_char();
@@ -51,11 +53,11 @@ void button_control(int *transmitting) {
  *	Add next char to transmission message
  *	If message is already of max size nothing happens
  */
-void add_char() {
+void add_char(char *message, int *msg_len, int msg_max_size) {
 
-	if (*transm_msg_length < *transm_msg_max_size){
-		*transm_msg_length = *transm_msg_length + 1;
-		*message[*transm_msg_length] = *current_char;
+	if (*msg_len < msg_max_size) {
+		*msg_len = *msg_len + 1;
+		message[*msg_len] = *curr_char;
 	}
 }
 
@@ -63,12 +65,16 @@ void add_char() {
  *	Increment char value using the char pointer
  *	For character value Z, jump to start of alphabet 
  */
-void increment_char(void) {
-	if ((int) *current_char >= 90) {
-		*current_char = 'A';
-	} else {
-		*current_char = *current_char + 1;
-	}
+void increment_char(char *curr_char, int steps) {
+
+    // Characters out of bound produce an A
+	if ((int) *curr_char >= 90)
+		*curr_char = 'A';
+
+    // Otherwise, the curr_char pointer is incremented
+	else
+		*curr_char = (char) (*curr_char + 1);
+
 }
 
 /**
@@ -76,9 +82,9 @@ void increment_char(void) {
  *	For character value A, jump to end of alphabet 
  */
 void decrement_char(void) {
-	if ((int) *current_char <= 65) {
-		*current_char = 'Z';
+	if ((int) *curr_char <= 65) {
+		*curr_char = 'Z';
 	} else {
-		*current_char = *current_char - 1;
+		*curr_char = (char) (*curr_char - 1);
 	}
 }
