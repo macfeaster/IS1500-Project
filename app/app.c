@@ -88,9 +88,9 @@ void init(void) {
 /* This function is called repetitively from the main program */
 void work(void) {
 
-    if (get_state()) {
+    if (!get_state()) {
 
-        display_string(0, "RECEIVING MODE");
+        display_string(0, "RECEIVE MODE");
         display_update();
 
         // If receiving, poll SPI buffer (maybe flash LED when a message is incoming)
@@ -99,24 +99,42 @@ void work(void) {
 
     } else {
 
-        display_string(0, "TRANSMISSION MODE");
-        display_update();
+        if (transmitting) {
 
-        button_control(&transmitting, msg, &curr_char, &msg_pos, MSG_MAX_LEN);
+            display_string(0, "TRANSMITTING...");
+            display_string(1, msg);
+            display_string(2, "");
+            display_string(3, "FLIPSWITCH 4 NEW");
 
-        quicksleep(200);
+            // Hang program until receive mode is initialized
+            while (get_state()) {};
 
-        char out[16];
-        num32asc(out, get_btns());
+        } else {
 
-        display_string(1, &curr_char);
-        display_string(2, msg);
-        display_string(3, out);
-        display_update();
+            display_string(0, "TRANSMIT MODE");
+            display_update();
 
-        // If transmission
-        // Enable user to write message
-        // When they push EOM button, lock board until transmission state switch is flipped
+            // Check for state change or button event
+            while (get_btns() == 0 && get_state()) {};
+
+            // Don't redraw until a button is pressed, or the state is changed
+            button_control(&transmitting, msg, &curr_char, &msg_pos, MSG_MAX_LEN);
+
+            char out[16];
+            num32asc(out, get_btns());
+
+            // TODO: Currently, the program redraws continually
+            // TODO: When
+            display_string(1, &curr_char);
+            display_string(2, msg);
+            display_string(3, out);
+            display_update();
+
+            // If transmission
+            // Enable user to write message
+            // When they push EOM button, lock board until transmission state switch is flipped
+
+        }
 
     }
 
