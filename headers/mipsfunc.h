@@ -33,6 +33,7 @@ void quicksleep(int cyc);
    about half of the digits shown by display_debug.
 */
 void display_debug( volatile int * const addr );
+void num32asc( char * s, int n );
 
 /* Declare bitmap array containing font */
 extern const uint8_t const font[128*8];

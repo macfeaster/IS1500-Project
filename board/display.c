@@ -7,7 +7,7 @@
 #include "../headers/mipsfunc.h"
 
 /* Declare a helper function which is local to this file */
-static void num32asc( char * s, int ); 
+// static void num32asc( char * s, int );
 
 #define DISPLAY_CHANGE_TO_COMMAND_MODE (PORTFCLR = 0x10)
 #define DISPLAY_CHANGE_TO_DATA_MODE (PORTFSET = 0x10)
@@ -130,7 +130,7 @@ void display_update(void) {
 
 /* Helper function, local to this file.
    Converts a number to hexadecimal ASCII digits. */
-static void num32asc( char * s, int n ) 
+void num32asc( char * s, int n )
 {
   int i;
   for( i = 28; i >= 0; i -= 4 )

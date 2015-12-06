@@ -14,6 +14,7 @@ int get_state(void);
 int get_btns(void);
 
 // Header definitions for lib/message.c
-void add_char(char *message, int *msg_len, int msg_max_size);
+void add_char(char *msg, int *msg_pos, int msg_max_size);
 void increment_char(char *curr_char, int steps);
 void decrement_char(char *curr_char, int steps);
+void button_control(int *transmitting, char *message, char *curr_char, int *msg_pos, int msg_max_len);
