@@ -1,4 +1,4 @@
- /* mipslabmain.c
+ /* main.c
 
    This file written 2015 by Axel Isaksson,
    modified 2015 by F Lundevall

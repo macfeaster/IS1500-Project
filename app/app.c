@@ -1,5 +1,5 @@
 /**
- *
+ * app.c
  */
 
 #include "../caesar.h"
@@ -27,6 +27,10 @@ void user_isr( void )
 /* Lab-specific initialization goes here */
 void init(void)
 {
+    // Initialize SPI
+
+    //
+
     // Initialize Port E so bits 7 though 0 of port E
     // are set as outputs (i.e. the 8 least significant bits)
     volatile int* trise = (volatile int*) 0xbf886100;
