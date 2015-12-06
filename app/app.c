@@ -7,7 +7,7 @@
 // Message buffer
 char msg[16];
 int transmitting = 0;
-char current_char = (char) 65;
+char curr_char = (char) 65;
 int msg_pos = 0;
 
 /* Interrupt Service Routine */
@@ -102,14 +102,14 @@ void work(void) {
         display_string(0, "TRANSMISSION MODE");
         display_update();
 
-        button_control(&transmitting, msg, &current_char, &msg_pos, MSG_MAX_LEN);
+        button_control(&transmitting, msg, &curr_char, &msg_pos, MSG_MAX_LEN);
 
         quicksleep(200);
 
         char out[16];
         num32asc(out, get_btns());
 
-        display_string(1, &current_char);
+        display_string(1, &curr_char);
         display_string(2, msg);
         display_string(3, out);
         display_update();
