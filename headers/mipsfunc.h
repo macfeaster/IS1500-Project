@@ -1,8 +1,6 @@
-/* mipslab.h
-   Header file for the project.
-
-   Written 2015 by Alice Heavey and Mauritz Zachrisson
-   Lines 10-40 written 2015 by F Lundevall
+/* mipsfunc.c
+   This file written 2015 by F Lundevall
+   Some parts are original code written by Axel Isaksson
 
    For copyright and licensing, see file COPYING */
 
@@ -40,14 +38,3 @@ void display_debug( volatile int * const addr );
 extern const uint8_t const font[128*8];
 /* Declare text buffer for display output */
 extern char textbuffer[4][16];
-
-/* Header definitions for lib/input.c */
-
-int get_key(void);
-int get_state(void);
-int get_btns(void);
-
-/* Header definitions for lib/message.c */
-void add_char(char *message, int *msg_len, int msg_max_size);
-void increment_char(char *curr_char, int steps);
-void decrement_char(char *curr_char, int steps);
