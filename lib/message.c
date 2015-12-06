@@ -13,6 +13,7 @@ void add_char(char *message, char *curr_char, int *msg_len, int msg_max_len) {
 	if (*msg_len < msg_max_len) {
 		*msg_len = *msg_len + 1;
 		message[*msg_len] = *curr_char;
+        *curr_char = (char) 32;
 	}
 }
 
