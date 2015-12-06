@@ -24,19 +24,15 @@ void add_char(char *message, int *msg_len, int msg_max_len) {
  */
 void increment_char(char *curr_char, int steps) {
 
-    // Run the incrementation n steps
-    // This should be replaced by a smarter algorithm later on
-    int i;
-    for (i = 0; i < steps; ++i) {
+    // Avoid redundant calculations resulting from steps > 26
+    int new_char = *curr_char + steps % 26;
 
-        // Characters out of bound produce an A
-        if ((int) *curr_char >= 90)
-            *curr_char = 'A';
-
-        // Otherwise, the curr_char pointer is incremented
-        else
-            *curr_char = (char) (*curr_char + 1);
-
+    // if new char does not exceed 90 (Z), assign to curr_char,
+    // otherwise add residual - 1 to 65 (A)
+    if (new_char =< 90) {
+        (int) *curr_char = new_char;
+    } else {
+        (int) *curr_char = new_char - 1 - 90 + 65;
     }
 
 }
@@ -47,18 +43,14 @@ void increment_char(char *curr_char, int steps) {
  */
 void decrement_char(char *curr_char, int steps) {
 
-    // Run the decrementation n steps
-    // This should be replaced by a smarter algorithm later on
-    int i;
-    for (i = 0; i < steps; ++i) {
+    // Avoid redundant calculations resulting from steps > 26
+    int new_char = *curr_char - steps % 26;
 
-        // Characters out of bound produce a Z
-        if ((int) *curr_char <= 65)
-		    *curr_char = 'Z';
-
-        // Otherwise, the curr_char pointer is incremented
-        else
-		    *curr_char = (char) (*curr_char - 1);
-
-	}
+    // if new char does not fall below 65 (A), assign to curr_char,
+    // otherwise add negative residual + 1 to 90 (Z)
+    if (new_char >= 65) {
+        (int) *curr_char = new_char;
+    } else {
+        (int) *curr_char = new_char + 1 - 65 + 90;
+    }
 }
