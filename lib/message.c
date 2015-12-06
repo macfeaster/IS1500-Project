@@ -4,13 +4,11 @@
 
 #include "../headers/caesar.h"
 
-char *curr_char = (char *) 'A';
-
 /**
  *	Add next char to transmission message
  *	If message is already of max size nothing happens
  */
-void add_char(char *message, int *msg_len, int msg_max_len) {
+void add_char(char *message, char *curr_char, int *msg_len, int msg_max_len) {
 
 	if (*msg_len < msg_max_len) {
 		*msg_len = *msg_len + 1;
