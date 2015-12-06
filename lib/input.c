@@ -39,6 +39,6 @@ int get_btns(void) {
     // Get bits 7-5 from port D (buttos 4-2),
     // and bit 1 from port F (button 1),
     // shift to mask unwanted bits, combine
-    return ((PORTD >> 4) & 0x7) | ((PORTF >> 1) & 0x1);
+    return ((PORTD >> 4) & 0xe) | ((PORTF >> 1) & 0x1);
 
 }
