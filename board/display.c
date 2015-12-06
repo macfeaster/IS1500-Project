@@ -1,10 +1,10 @@
-/* mipslabfunc.c
+/* display.c
    This file written 2015 by F Lundevall
    Some parts are original code written by Axel Isaksson
 
    For copyright and licensing, see file COPYING */
 
-#include "../caesar.h"
+#include "../headers/mipsfunc.h"
 
 /* Declare a helper function which is local to this file */
 static void num32asc( char * s, int ); 

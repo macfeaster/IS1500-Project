@@ -4,7 +4,7 @@
 
    For copyright and licensing, see file COPYING */
 
-#include "../caesar.h"
+#include "../headers/mipsfunc.h"
 
 char textbuffer[4][16];
 
