@@ -6,6 +6,9 @@
 
 // Message buffer
 char msg[16];
+int transmitting = 0;
+char current_char = (char) 65;
+int msg_pos = 0;
 
 /* Interrupt Service Routine */
 void user_isr( void )
@@ -28,8 +31,11 @@ void user_isr( void )
 }
 
 /* Lab-specific initialization goes here */
-void init(void)
-{
+void init(void) {
+
+    // Initialize display
+    display_init();
+
     // Initialize SPI
 
     // Initialize empty message (spaces only)
@@ -45,9 +51,9 @@ void init(void)
 //    // This could be done by writing to TRISECLR
 //    *trise &= ~0xff;
 //
-//    // Set up port D for input
-//
-//    PORTD &= 0xfe0;
+    // Set up port D for input
+
+    PORTD &= 0xfe0;
 //    // Initialize Timer 2 for timeouts every 100 ms (10 timeouts per second), by:
 //    // - Setting prescaling to 1:256
 //    // - Setting the period to 31,250
@@ -70,9 +76,9 @@ void init(void)
 //    // Set interrupt priority to highest, and sub-priority to highest
 //    IPCSET(2) = 0x1f;
 //
-//    display_string( 0, "HEI \\_('-')_/ LEL" );
-//    display_string( 1, "LEL \\_('-')_/ LEL" );
-//    display_update();
+    display_string( 0, "HEI \\_('-')_/ LEL" );
+    display_string( 1, "LEL \\_('-')_/ LEL" );
+    display_update();
 
 
 
@@ -80,14 +86,38 @@ void init(void)
 }
 
 /* This function is called repetitively from the main program */
-void work(void)
-{
-    // 1. Check transmission state
-    // If receiving, poll SPI buffer (maybe flash LED when a message is incoming)
-    // Decode and display the message on the screen
-    // Poll switches repeatedly to try decode using key
+void work(void) {
 
-    // If transmission
-    // Enable user to write message
-    // When they push EOM button, lock board until transmission state switch is flipped
+    if (get_state()) {
+
+        display_string(0, "RECEIVING MODE");
+        display_update();
+
+        // If receiving, poll SPI buffer (maybe flash LED when a message is incoming)
+        // Poll switches repeatedly to try decode using key
+        // Decode and display the message on the screen
+
+    } else {
+
+        display_string(0, "TRANSMISSION MODE");
+        display_update();
+
+        button_control(&transmitting, msg, &current_char, &msg_pos, MSG_MAX_LEN);
+
+        quicksleep(200);
+
+        char out[16];
+        num32asc(out, get_btns());
+
+        display_string(1, &current_char);
+        display_string(2, msg);
+        display_string(3, out);
+        display_update();
+
+        // If transmission
+        // Enable user to write message
+        // When they push EOM button, lock board until transmission state switch is flipped
+
+    }
+
 }
