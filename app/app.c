@@ -34,9 +34,8 @@ void init(void)
 
     // Initialize empty message (spaces only)
     int i;
-    for (i = 0; i < 16; ++i) {
-
-    }
+    for (i = 0; i < 16; ++i)
+        msg[i] = (char) 32;
 
 //    // Initialize Port E so bits 7 though 0 of port E
 //    // are set as outputs (i.e. the 8 least significant bits)
@@ -83,5 +82,12 @@ void init(void)
 /* This function is called repetitively from the main program */
 void work(void)
 {
+    // 1. Check transmission state
+    // If receiving, poll SPI buffer (maybe flash LED when a message is incoming)
+    // Decode and display the message on the screen
+    // Poll switches repeatedly to try decode using key
 
+    // If transmission
+    // Enable user to write message
+    // When they push EOM button, lock board until transmission state switch is flipped
 }
