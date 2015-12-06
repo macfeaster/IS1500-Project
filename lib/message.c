@@ -23,6 +23,12 @@ void add_char(char *message, char *curr_char, int *msg_len, int msg_max_len) {
  */
 void increment_char(char *curr_char, int steps) {
 
+    // If curr_char out of bounds, set it to A
+    if ((int) *curr_char < 65 | (int) *curr_char > 90) {
+        *curr_char = 'A';
+        return;
+    }
+
     // Avoid redundant calculations resulting from steps > 26
     int new_char = *curr_char + steps % 26;
 
@@ -41,6 +47,12 @@ void increment_char(char *curr_char, int steps) {
  *	For character value A, jump to end of alphabet 
  */
 void decrement_char(char *curr_char, int steps) {
+
+    // If curr_char out of bounds, set it to Z
+    if ((int) *curr_char < 65 | (int) *curr_char > 90) {
+        *curr_char = 'Z';
+        return;
+    }
 
     // Avoid redundant calculations resulting from steps > 26
     int new_char = *curr_char - steps % 26;
