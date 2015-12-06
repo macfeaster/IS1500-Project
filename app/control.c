@@ -40,7 +40,7 @@ void button_control(int *transmitting, char *message, char *curr_char, int *msg_
                 while(get_btns() == 2){};
                 display_string(2, "MSG " + *message);
                 display_update();
-                add_char(message, msg_len, msg_max_len);
+                add_char(message, curr_char, msg_len, msg_max_len);
                 break;
 
             case 4:
