@@ -1,8 +1,11 @@
-/**
- * app.c
- */
+// app.c
+// Part of the KTH course IS1500 Computer Organization and Components project
+// Authors: Alice Heavey and Mauritz Zachrisson
 
-#include "../caesar.h"
+#include "../headers/caesar.h"
+
+// Message buffer
+char msg[16];
 
 /* Interrupt Service Routine */
 void user_isr( void )
@@ -29,44 +32,50 @@ void init(void)
 {
     // Initialize SPI
 
-    //
+    // Initialize empty message (spaces only)
+    int i;
+    for (i = 0; i < 16; ++i) {
 
-    // Initialize Port E so bits 7 though 0 of port E
-    // are set as outputs (i.e. the 8 least significant bits)
-    volatile int* trise = (volatile int*) 0xbf886100;
+    }
 
-    // Leave everything but 8 LSB's as is, set LSB's to zero
-    // This could be done by writing to TRISECLR
-    *trise &= ~0xff;
+//    // Initialize Port E so bits 7 though 0 of port E
+//    // are set as outputs (i.e. the 8 least significant bits)
+//    volatile int* trise = (volatile int*) 0xbf886100;
+//
+//    // Leave everything but 8 LSB's as is, set LSB's to zero
+//    // This could be done by writing to TRISECLR
+//    *trise &= ~0xff;
+//
+//    // Set up port D for input
+//
+//    PORTD &= 0xfe0;
+//    // Initialize Timer 2 for timeouts every 100 ms (10 timeouts per second), by:
+//    // - Setting prescaling to 1:256
+//    // - Setting the period to 31,250
+//    // Since 256 * 31,250 = 8M (and clock is 80 MHz, equalling 80M clock cycles per second)
+//
+//    // Set bits 6 through 4 to 111 (0x70) to achieve 1:256 prescaling
+//    T2CONSET = 0x70;
+//    PR2 = 31250;
+//    PR2 *= 2;           // Half the interrupt frequency
+//
+//    // Turn on the timer
+//    T2CONSET = 0x8000;
+//
+//    // Enable interrupts globally (call the asm code)
+//    asm("ei");
+//
+//    // Enable interrupts for Timer 2 (set T2IE, bit 8 of IEC0, to 1)
+//    IECSET(0) = 0x100;
+//
+//    // Set interrupt priority to highest, and sub-priority to highest
+//    IPCSET(2) = 0x1f;
+//
+//    display_string( 0, "HEI \\_('-')_/ LEL" );
+//    display_string( 1, "LEL \\_('-')_/ LEL" );
+//    display_update();
 
-    // Set up port D for input
 
-    PORTD &= 0xfe0;
-    // Initialize Timer 2 for timeouts every 100 ms (10 timeouts per second), by:
-    // - Setting prescaling to 1:256
-    // - Setting the period to 31,250
-    // Since 256 * 31,250 = 8M (and clock is 80 MHz, equalling 80M clock cycles per second)
-
-    // Set bits 6 through 4 to 111 (0x70) to achieve 1:256 prescaling
-    T2CONSET = 0x70;
-    PR2 = 31250;
-    PR2 *= 2;           // Half the interrupt frequency
-
-    // Turn on the timer
-    T2CONSET = 0x8000;
-
-    // Enable interrupts globally (call the asm code)
-    asm("ei");
-
-    // Enable interrupts for Timer 2 (set T2IE, bit 8 of IEC0, to 1)
-    IECSET(0) = 0x100;
-
-    // Set interrupt priority to highest, and sub-priority to highest
-    IPCSET(2) = 0x1f;
-
-    display_string( 0, "HEI \\_('-')_/ LEL" );
-    display_string( 1, "LEL \\_('-')_/ LEL" );
-    display_update();
 
     return;
 }
@@ -74,4 +83,5 @@ void init(void)
 /* This function is called repetitively from the main program */
 void work(void)
 {
+
 }
