@@ -1,4 +1,8 @@
-#include "../caesar.h"
+// input.c
+// Part of the KTH course IS1500 Computer Organization and Components project
+// Authors: Alice Heavey and Mauritz Zachrisson
+
+#include "../headers/caesar.h"
 
 /**
  *	Returns integer representation of state of toggle 
@@ -7,9 +11,10 @@
  */
 int get_key(void) {
 
-	// Get value from port D, shift to make 11-7 
-	// least significant bits, mask out unwanted bits
-	return (PORTD >> 9) & 0x7;
+    // Get value from port D, shift to make 11-7
+    // least significant bits, mask out unwanted bits
+    return (PORTD >> 9) & 0x7;
+
 }
 
 /**
@@ -18,9 +23,10 @@ int get_key(void) {
  */
 int get_state(void) {
 
-	// Get value from port D, shift to make bit 8 
-	// least significant bit, mask out unwanted bits
-	return (PORTD >> 8) & 0x1;
+    // Get value from port D, shift to make bit 8
+    // least significant bit, mask out unwanted bits
+    return (PORTD >> 8) & 0x1;
+
 }
 
 /**
@@ -29,9 +35,10 @@ int get_state(void) {
  *	1 is on, 0 off.
  */
 int get_btns(void) {
-	
-	// Get bits 7-5 from port D (buttos 4-2), 
-	// and bit 1 from port F (button 1), 
-	// shift to mask unwanted bits, combine
-	return ((PORTD >> 4) & 0x7) | ((PORTF >> 1) & 0x1);
+
+    // Get bits 7-5 from port D (buttos 4-2),
+    // and bit 1 from port F (button 1),
+    // shift to mask unwanted bits, combine
+    return ((PORTD >> 4) & 0x7) | ((PORTF >> 1) & 0x1);
+
 }
