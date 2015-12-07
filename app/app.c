@@ -114,7 +114,7 @@ void work(void) {
         if (transmitting || msg_pos == MSG_MAX_LEN) {
 
             // Fetch encryption key
-            volatile int key = get_key();
+            int key = get_key();
 
             display_string(0, "TRANSMITTING...");
             // Display message submitted for encryption

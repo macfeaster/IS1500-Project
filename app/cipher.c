@@ -5,7 +5,11 @@
 // Bytes to chars
 // Convert SPI data to C data structures
 
-// Encrypt
+/**
+ * Encrypts text message using Caecar cipher, 
+ * where key determines how many steps each 
+ * letter should be shifted (right)
+ */
 void encrypt(char *msg, int key, int msg_max_len) {
 	int i;
 	for (i = 0; i < msg_max_len; ++i) {
@@ -14,4 +18,15 @@ void encrypt(char *msg, int key, int msg_max_len) {
 	}
 }
 
-// Decrypt
+/**
+ * Decrypts text message using Caecar cipher, 
+ * where key determines how many steps each 
+ * letter should be shifted (left)
+ */
+void decrypt(char *msg, int key, int msg_max_len) {
+	int i;
+	for (i = 0; i < msg_max_len; ++i) {
+		if (msg[i] != ' ')
+			decrement_char(&msg[i], key);
+	}
+}

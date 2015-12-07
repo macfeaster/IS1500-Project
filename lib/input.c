@@ -26,7 +26,6 @@ int get_state(void) {
     // Get value from port D, shift to make bit 8
     // least significant bit, mask out unwanted bits
     return (PORTD >> 8) & 0x1;
-
 }
 
 /**
