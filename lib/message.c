@@ -24,7 +24,7 @@ void add_char(char *message, char *curr_char, int *msg_len, int msg_max_len) {
 void increment_char(char *curr_char, int steps) {
 
     // If curr_char out of bounds, set it to A
-    if ((int) *curr_char < 65 | (int) *curr_char > 90) {
+    if ((int) *curr_char < 65 || (int) *curr_char > 90) {
         *curr_char = 'A';
         return;
     }
@@ -49,7 +49,7 @@ void increment_char(char *curr_char, int steps) {
 void decrement_char(char *curr_char, int steps) {
 
     // If curr_char out of bounds, set it to Z
-    if ((int) *curr_char < 65 | (int) *curr_char > 90) {
+    if ((int) *curr_char < 65 || (int) *curr_char > 90) {
         *curr_char = 'Z';
         return;
     }

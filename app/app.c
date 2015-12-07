@@ -120,14 +120,15 @@ void work(void) {
             // Don't redraw until a button is pressed, or the state is changed
             button_control(&transmitting, msg, &curr_char, &msg_pos, MSG_MAX_LEN);
 
-            char out[16];
-            num32asc(out, get_btns());
+            // char out[16];
+            // num32asc(out, get_btns());
 
             // TODO: Currently, the program redraws continually
             // TODO: When
-            display_string(1, &curr_char);
+            char swag = curr_char;
+            display_string(1, &swag);
             display_string(2, msg);
-            display_string(3, out);
+            // display_string(3, out);
             display_update();
 
             // If transmission
