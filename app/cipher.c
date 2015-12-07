@@ -6,5 +6,12 @@
 // Convert SPI data to C data structures
 
 // Encrypt
+void encrypt(char *msg, int key, int msg_max_len) {
+	int i;
+	for (i = 0; i < msg_max_len; ++i)
+	{
+		increment_char(&msg[i], key);
+	}
+}
 
 // Decrypt

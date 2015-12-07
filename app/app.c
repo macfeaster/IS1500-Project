@@ -91,7 +91,19 @@ void work(void) {
     if (!get_state()) {
 
         display_string(0, "RECEIVE MODE");
+        display_string(1, "");
+        display_string(2, "");
+        display_string(3, "");
         display_update();
+
+        // Reset transmission values
+        curr_char = (char) 65;
+        msg_pos = 0;
+        transmitting = 0;
+
+        int i;
+        for (i = 0; i < 16; ++i)
+            msg[i] = (char) 32;
 
         // If receiving, poll SPI buffer (maybe flash LED when a message is incoming)
         // Poll switches repeatedly to try decode using key
@@ -99,7 +111,7 @@ void work(void) {
 
     } else {
 
-        if (transmitting || msg_pos == 15) {
+        if (transmitting || msg_pos == MSG_MAX_LEN) {
 
             display_string(0, "TRANSMITTING...");
             display_string(1, msg);
@@ -126,11 +138,12 @@ void work(void) {
             // TODO: Currently, the program redraws continually
             // TODO: When
 
+            // Prints curr_char right after msg
             msg[msg_pos] = curr_char;
 
             display_string(1, msg);
             display_string(2, "");
-            // display_string(3, out);
+            display_string(3, "");
             display_update();
 
             // If transmission
