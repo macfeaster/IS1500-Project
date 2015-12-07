@@ -99,13 +99,13 @@ void work(void) {
 
     } else {
 
-        if (transmitting) {
+        if (transmitting || msg_pos == 15) {
 
             display_string(0, "TRANSMITTING...");
             display_string(1, msg);
             display_string(2, "");
             display_string(3, "FLIPSWITCH 4 NEW");
-
+            display_update();
             // Hang program until receive mode is initialized
             while (get_state()) {};
 
@@ -125,9 +125,11 @@ void work(void) {
 
             // TODO: Currently, the program redraws continually
             // TODO: When
-            char swag = curr_char;
-            display_string(1, &swag);
-            display_string(2, msg);
+
+            msg[msg_pos] = curr_char;
+
+            display_string(1, msg);
+            display_string(2, "");
             // display_string(3, out);
             display_update();
 
