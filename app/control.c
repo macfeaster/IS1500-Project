@@ -17,7 +17,7 @@
  *
  *	Only takes input from one button at a time
  */
-void button_control(int *transmitting, char *message, char *curr_char, int *msg_len, int msg_max_len) {
+void button_control(int *transmitting, char *message, char *curr_char, int *msg_pos, int msg_max_len) {
 
     volatile int btns = get_btns();
 
@@ -40,7 +40,7 @@ void button_control(int *transmitting, char *message, char *curr_char, int *msg_
                 while(get_btns() == 2){};
                 display_string(2, "MSG " + *message);
                 display_update();
-                add_char(message, curr_char, msg_len, msg_max_len);
+                add_char(message, curr_char, msg_pos, msg_max_len);
                 break;
 
             case 4:
