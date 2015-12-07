@@ -8,9 +8,9 @@
 // Encrypt
 void encrypt(char *msg, int key, int msg_max_len) {
 	int i;
-	for (i = 0; i < msg_max_len; ++i)
-	{
-		increment_char(&msg[i], key);
+	for (i = 0; i < msg_max_len; ++i) {
+		if (msg[i] != ' ')
+			increment_char(&msg[i], key);
 	}
 }
 
