@@ -113,16 +113,19 @@ void work(void) {
 
         if (transmitting || msg_pos == MSG_MAX_LEN) {
 
-            int key = get_key();
-
+            // Fetch encryption key
+            volatile int key = get_key();
 
             display_string(0, "TRANSMITTING...");
+            // Display message submitted for encryption
             display_string(1, msg);
 
+            // Encrypt message
             encrypt(&msg[0], key, MSG_MAX_LEN);
 
+            // Display encrypted message
             display_string(2, msg);
-            display_string(3, "FLIPSWITCH 4 NEW");
+            display_string(3, "FLIP SWTCH 4 NEW");
             display_update();
             // Hang program until receive mode is initialized
             while (get_state()) {};
@@ -145,7 +148,8 @@ void work(void) {
             // TODO: When
 
             // Prints curr_char right after msg
-            // Where beautiful solutions go to die
+            // Where beautiful solutions go to die 
+            // *RIP*
             msg[msg_pos] = curr_char;
 
             display_string(1, msg);
