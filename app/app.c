@@ -7,7 +7,7 @@
 // Message buffer
 char msg[16];
 int transmitting = 0;
-char curr_char = (char) 65;
+char curr_char = (char) 32;
 int msg_pos = 0;
 
 /* Interrupt Service Routine */
