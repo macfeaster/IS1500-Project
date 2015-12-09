@@ -97,7 +97,7 @@ void work(void) {
         display_update();
 
         // Reset transmission values
-        curr_char = (char) 65;
+        curr_char = (char) 32;
         msg_pos = 0;
         transmitting = 0;
 
