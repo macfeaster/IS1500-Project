@@ -41,3 +41,15 @@ int get_btns(void) {
     return ((PORTD >> 4) & 0xe) | ((PORTF >> 1) & 0x1);
 
 }
+
+/**
+ * Clear display line values
+ */
+void display_clear() {
+
+    display_string(0, "");
+    display_string(1, "");
+    display_string(2, "");
+    display_string(3, "");
+
+}

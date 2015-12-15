@@ -5,16 +5,6 @@ char rec_buffer[MSG_MAX_LEN];
 // Forward declarations
 void read_buffer(char* out);
 
-// Clear display line values
-void display_clear() {
-
-    display_string(0, "");
-    display_string(1, "");
-    display_string(2, "");
-    display_string(3, "");
-
-}
-
 void receive() {
 
     display_clear();
@@ -29,15 +19,19 @@ void receive() {
 
     read_buffer(rec_buffer);
 
+    decrypt(rec_buffer, get_key(), MSG_MAX_LEN);
+
     display_clear();
     display_string(0, "RECEIVED MSG.");
     display_string(1, rec_buffer);
+    display_string(2, itoaconv(get_key()));
     display_update();
+
 
     // Hang until new data
     while (!get_state()) {};
 
-    receive();
+    transmit();
 
 }
 
