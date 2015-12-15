@@ -18,3 +18,7 @@ void add_char(char *msg, char *curr_char, int *msg_pos, int msg_max_size);
 void increment_char(char *curr_char, int steps);
 void decrement_char(char *curr_char, int steps);
 void button_control(int *transmitting, char *message, char *curr_char, int *msg_pos, int msg_max_len);
+
+// Header definitions for app/cipher.c
+void encrypt(char *msg, int key, int msg_max_len);
+void decrypt(char *msg, int key, int msg_max_len);

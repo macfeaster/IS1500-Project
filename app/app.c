@@ -36,51 +36,24 @@ void init(void) {
     // Initialize display
     display_init();
 
-    // Initialize SPI
+    // Initialize UART
+    // TODO: Explain config
+    U1MODE = 0x0285;
+    U1STA = 0x0000D400;
+    U1BRG = 0x4119;
+    U1MODESET = 0x00008000;
 
     // Initialize empty message (spaces only)
     int i;
     for (i = 0; i < 16; ++i)
         msg[i] = (char) 32;
 
-//    // Initialize Port E so bits 7 though 0 of port E
-//    // are set as outputs (i.e. the 8 least significant bits)
-//    volatile int* trise = (volatile int*) 0xbf886100;
-//
-//    // Leave everything but 8 LSB's as is, set LSB's to zero
-//    // This could be done by writing to TRISECLR
-//    *trise &= ~0xff;
-//
     // Set up port D for input
-
     PORTD &= 0xfe0;
-//    // Initialize Timer 2 for timeouts every 100 ms (10 timeouts per second), by:
-//    // - Setting prescaling to 1:256
-//    // - Setting the period to 31,250
-//    // Since 256 * 31,250 = 8M (and clock is 80 MHz, equalling 80M clock cycles per second)
-//
-//    // Set bits 6 through 4 to 111 (0x70) to achieve 1:256 prescaling
-//    T2CONSET = 0x70;
-//    PR2 = 31250;
-//    PR2 *= 2;           // Half the interrupt frequency
-//
-//    // Turn on the timer
-//    T2CONSET = 0x8000;
-//
-//    // Enable interrupts globally (call the asm code)
-//    asm("ei");
-//
-//    // Enable interrupts for Timer 2 (set T2IE, bit 8 of IEC0, to 1)
-//    IECSET(0) = 0x100;
-//
-//    // Set interrupt priority to highest, and sub-priority to highest
-//    IPCSET(2) = 0x1f;
-//
+
     display_string( 0, "HEI \\_('-')_/ LEL" );
     display_string( 1, "LEL \\_('-')_/ LEL" );
     display_update();
-
-
 
     return;
 }
@@ -88,6 +61,7 @@ void init(void) {
 /* This function is called repetitively from the main program */
 void work(void) {
 
+    // If state is 0, board is in receive mode
     if (!get_state()) {
 
         display_string(0, "RECEIVE MODE");
@@ -145,7 +119,6 @@ void work(void) {
             // num32asc(out, get_btns());
 
             // TODO: Currently, the program redraws continually
-            // TODO: When
 
             // Prints curr_char right after msg
             // Where beautiful solutions go to die 

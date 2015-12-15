@@ -5,6 +5,8 @@
 // Bytes to chars
 // Convert SPI data to C data structures
 
+#include "../headers/caesar.h"
+
 /**
  * Encrypts text message using Caecar cipher, 
  * where key determines how many steps each 
