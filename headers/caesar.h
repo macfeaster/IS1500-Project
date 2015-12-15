@@ -8,6 +8,16 @@
 // Global constants
 #define MSG_MAX_LEN 16
 
+// Header definitions for transmit.c and receive.c
+char msg[16];
+int transmitting = 0;
+char curr_char = (char) 32;
+int msg_pos = 0;
+
+// Receive buffer
+char rec_buffer[16];
+char decrypted_rec_msg[16];
+
 // Header definitions for lib/input.c
 int get_key(void);
 int get_state(void);

@@ -42,9 +42,9 @@ int main(void) {
 	/* SPI2CON bit ON = 1; */
 	SPI2CONSET = 0x8000;
 
-	init(); /* Do any lab-specific initialization */
+	config(); /* Do any lab-specific initialization */
 
-	work(); /* Do lab-specific things again and again */
+	run(); /* Do lab-specific things again and again */
 
 	return 0;
 }
