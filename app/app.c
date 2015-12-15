@@ -91,6 +91,14 @@ void work(void) {
         for (i = 0; i < 16; ++i)
             msg[i] = (char) 32;
 
+        // Empty rec buffer
+        for (i = 0; i < 16; ++i)
+            rec_buffer[i] = (char) 32;
+
+        // Empty decrypted buffer
+        for (i = 0; i < 16; ++i)
+            decrypted_rec_msg[i] = (char) 32;
+
         int buf_index = 0;
 
         // Receive incoming message
@@ -128,7 +136,7 @@ void work(void) {
 
         display_string(0, "RECEIVED MSG");
         display_string(1, "");
-        display_string(2, "");
+        display_string(2, rec_buffer);
         display_string(3, decrypted_rec_msg);
         display_update();
 
