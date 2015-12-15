@@ -122,12 +122,6 @@ void work(void) {
             }
         }
 
-        display_string(0, "RECEIVED MSG");
-        display_string(1, "");
-        display_string(2, "");
-        display_string(3, "");
-        display_update();
-
         // Get key from switches
         int key = get_key();
 
