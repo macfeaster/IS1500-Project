@@ -6,16 +6,22 @@ char msg[16];
 
 void transmit() {
 
-    // Initialize empty message (spaces only)
-    int i;
-    for (i = 0; i < 16; ++i)
-        msg[i] = (char) 32;
-
-    int is_transmitting = 0;
-
+    // Setup
     display_clear();
     display_string(0, "TRANSMIT MODE");
     display_update();
+
+    msg_init(msg);
+
+    while (get_btns() == 0 && !is_transmitting)
+        input_transmission_msg();
+
+    transmitting();
+
+    while()
+}
+
+void input_transmission_msg() {
 
     // Check for state change or button event
     while (get_btns() == 0 && get_state());
@@ -23,53 +29,36 @@ void transmit() {
     // Don't redraw until a button is pressed, or the state is changed
     button_control(&is_transmitting, msg, &curr_char, &msg_pos, MSG_MAX_LEN);
 
-    // TODO: Currently, the program redraws continually
-
     // Prints curr_char right after msg
     // Where beautiful solutions go to die
     // *RIP*
     msg[msg_pos] = curr_char;
-
+    display_clear();
     display_string(1, msg);
-    display_string(2, "");
-    display_string(3, "");
     display_update();
-
-    // If transmission
-    // Enable user to write message
-    // When they push EOM button, lock board until transmission state switch is flipped
-
-    // Reset transmission values
-    curr_char = (char) 32;
-    msg_pos = 0;
-    is_transmitting = 0;
-
-    // Reset transmission message
-
-    for (i = 0; i < 16; ++i)
-        msg[i] = (char) 32;
-
-
 }
 
 void transmitting() {
 
-    // Fetch encryption key
-    int key = get_key();
-
-    display_string(0, "TRANSMITTING...");
-    // Display message submitted for encryption
-    display_string(1, msg);
+    display_clear();
+    display_string(0, "TRANSMITTING ...");
+    display_update();
 
     // Encrypt message
-    encrypt(&msg[0], key, MSG_MAX_LEN);
+    encrypt(&msg[0], get_key(), MSG_MAX_LEN);
 
-    // Display encrypted message
-    display_string(2, msg);
-    display_string(3, "FLIP SWTCH 4 NEW");
+    // Transmit message
+    int i;
+    for (i = 0; i < MSG_MAX_LEN; i++) {
+
+        while(U1STA & 0x0200); //UTXBF <- buffern är full
+        U1TXREG = string_to_send[i];
+    }
+    
+    is_transmitting = 0;
+
+    display_clear();
+    display_string(0, "MSG TRANSMITTED.");
     display_update();
-    // Hang program until receive mode is initialized
-    while (get_state()) { };
-
 
 }
