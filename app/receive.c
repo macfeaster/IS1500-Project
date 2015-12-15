@@ -63,6 +63,6 @@ void read_buffer(char* out) {
         display_string(1, dots);
         display_update();
 
-        quicksleep(5000000);
+        quicksleep(2500000);
     }
 }
