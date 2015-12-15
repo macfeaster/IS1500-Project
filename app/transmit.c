@@ -1,6 +1,16 @@
 #include "../headers/caesar.h"
 
+int transmitting = 0;
+char curr_char = (char) 32;
+int msg_pos = 0;
+char msg[16];
+
 void transmit() {
+
+    // Initialize empty message (spaces only)
+    int i;
+    for (i = 0; i < 16; ++i)
+        msg[i] = (char) 32;
 
     if (transmitting || msg_pos == MSG_MAX_LEN) {
 
@@ -50,6 +60,16 @@ void transmit() {
         // If transmission
         // Enable user to write message
         // When they push EOM button, lock board until transmission state switch is flipped
+
+        // Reset transmission values
+        curr_char = (char) 32;
+        msg_pos = 0;
+        transmitting = 0;
+
+        // Reset transmission message
+        int i;
+        for (i = 0; i < 16; ++i)
+            msg[i] = (char) 32;
 
 
     }

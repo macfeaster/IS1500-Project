@@ -1,5 +1,7 @@
 #include "../headers/caesar.h"
 
+char rec_buffer[16];
+
 void receive() {
 
     display_string(0, "RECEIVE MODE");
@@ -7,26 +9,6 @@ void receive() {
     display_string(2, "");
     display_string(3, "");
     display_update();
-
-    // Reset transmission values
-    curr_char = (char) 32;
-    msg_pos = 0;
-    transmitting = 0;
-
-    // Reset transmission message
-    int i;
-    for (i = 0; i < 16; ++i)
-        msg[i] = (char) 32;
-
-    // Empty rec buffer
-    for (i = 0; i < 16; ++i)
-        rec_buffer[i] = (char) 32;
-
-    // Empty decrypted buffer
-    for (i = 0; i < 16; ++i)
-        decrypted_rec_msg[i] = (char) 32;
-
-    int buf_index = 0;
 
     // Wait for incoming message
     display_string(0, "WAITING4INC");
@@ -39,10 +21,11 @@ void receive() {
         // Receive one byte from receive register
         unsigned int buf = U1RXREG;
         rec_buffer[j] = buf;
+        display_string(0, "INCOMING...");
         display_string(1, buf);
         display_string(2, rec_buffer);
         display_update();
-        quicksleep(50000);
+        quicksleep(5000000);
     }
 
     // Vaska all jävla skit som är kvar i buffern
@@ -81,9 +64,9 @@ void receive() {
     display_string(1, itoaconv(U1STA & 1));
     display_string(2, rec_buffer);
 
-    decrypt(&rec_buffer[0], key, MSG_MAX_LEN);
+    // decrypt(&rec_buffer[0], key, MSG_MAX_LEN);
 
-    display_string(3, rec_buffer);
+    // display_string(3, rec_buffer);
     display_update();
 
     // Pause until mode is switched

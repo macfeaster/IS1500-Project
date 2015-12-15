@@ -27,11 +27,6 @@ void config(void) {
     U1BRG = 0xFFFF;
     U1MODESET = 0x00008000;
 
-    // Initialize empty message (spaces only)
-    int i;
-    for (i = 0; i < 16; ++i)
-        msg[i] = (char) 32;
-
     // Set up port D for input
     PORTD &= 0xfe0;
 
