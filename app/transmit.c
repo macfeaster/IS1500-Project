@@ -3,7 +3,15 @@
 char curr_char = (char) 32;
 int msg_pos = 0;
 char msg[16];
+int is_transmitting = 0;
 
+// Forward declarations
+void input_transmission_msg();
+void transmitting();
+
+/**
+ * Transmit
+ */
 void transmit() {
 
     // Setup
@@ -18,7 +26,8 @@ void transmit() {
 
     transmitting();
 
-    while()
+    while(get_state());
+    receive();
 }
 
 void input_transmission_msg() {
@@ -50,11 +59,12 @@ void transmitting() {
     // Transmit message
     int i;
     for (i = 0; i < MSG_MAX_LEN; i++) {
-
-        while(U1STA & 0x0200); //UTXBF <- buffern är full
-        U1TXREG = string_to_send[i];
+        // Block until the buffer is available
+        while(U1STA & 0x0200);
+        U1TXREG = msg[i];
     }
-    
+
+    msg_pos = 0;
     is_transmitting = 0;
 
     display_clear();

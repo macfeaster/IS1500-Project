@@ -11,7 +11,11 @@ void receive() {
     display_string(0, "RECEIVE MODE");
     display_update();
 
-    while (!(U1STA & 1));
+    while (!(U1STA & 1) && !get_state());
+
+    // Jump to transmit mode if user toggles switch
+    if (get_state())
+        transmit();
 
     display_clear();
     display_string(0, "INCOMING MSG...");
@@ -28,7 +32,7 @@ void receive() {
     display_update();
 
 
-    // Hang until new data
+    // Hang until mode is switched
     while (!get_state()) {};
 
     transmit();
