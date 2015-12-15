@@ -51,7 +51,7 @@ void init(void) {
      */
     U1MODE = 0x0285;
     U1STA = 0x0000D400;
-    U1BRG = 0x4119;
+    U1BRG = 0xFFFF;
     U1MODESET = 0x00008000;
 
     // Initialize empty message (spaces only)
@@ -165,6 +165,9 @@ void work(void) {
         } else {
 
             display_string(0, "TRANSMIT MODE");
+            display_string(1, "");
+            display_string(2, "");
+            display_string(3, "");
             display_update();
 
             // Check for state change or button event
