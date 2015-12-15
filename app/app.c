@@ -62,8 +62,8 @@ void init(void) {
     // Set up port D for input
     PORTD &= 0xfe0;
 
-    display_string( 0, "HEI \\_('-')_/ LEL" );
-    display_string( 1, "LEL \\_('-')_/ LEL" );
+    display_string( 0, "\\_('-')_/" );
+    display_string( 1, "\\_('-')_/" );
     display_update();
 
     return;
@@ -125,8 +125,8 @@ void work(void) {
         // Get key from switches
         int key = get_key();
 
-        strcpy(rec_buffer, decrypted_rec_msg);
-        decrypt(decrypted_rec_msg, key, MSG_MAX_LEN);
+        strcpy(&rec_buffer, &decrypted_rec_msg);
+        decrypt(&decrypted_rec_msg[0], key, MSG_MAX_LEN);
 
         display_string(0, "RECEIVED MSG");
         display_string(1, "");
@@ -201,6 +201,6 @@ void work(void) {
 
 }
 
-void strcpy(char *dst, char *src) {
+void strcpy(char *src, char *dst) {
     while((*dst++ = *src++));
 }

@@ -22,4 +22,4 @@ void button_control(int *transmitting, char *message, char *curr_char, int *msg_
 // Header definitions for app/cipher.c
 void encrypt(char *msg, int key, int msg_max_len);
 void decrypt(char *msg, int key, int msg_max_len);
-void strcpy(char *dst, char *src);
+void strcpy(char *src, char *dst);
