@@ -10,6 +10,10 @@ int transmitting = 0;
 char curr_char = (char) 32;
 int msg_pos = 0;
 
+// Receive buffer
+char rec_buffer[16];
+char decrypted_rec_msg[16];
+
 /* Interrupt Service Routine */
 void user_isr( void )
 {
@@ -36,8 +40,15 @@ void init(void) {
     // Initialize display
     display_init();
 
-    // Initialize UART
-    // TODO: Explain config
+    /**
+     * Config U1MODE:
+     *
+     * Bits 8-9 = 10 = Enable and use UxTX, UxRX, UxCTS and UxRTS (all pins)
+     *
+     * Flow control mode, which (essentially) means that the boards will wait
+     * for each other when sending and receiving data, so no data is lost.
+     * Enables
+     */
     U1MODE = 0x0285;
     U1STA = 0x0000D400;
     U1BRG = 0x4119;
@@ -75,9 +86,54 @@ void work(void) {
         msg_pos = 0;
         transmitting = 0;
 
+        // Reset transmission message
         int i;
         for (i = 0; i < 16; ++i)
             msg[i] = (char) 32;
+
+        int buf_index = 0;
+
+        // Receive incoming message
+        while (1) {
+            // When Receive Buffer Data Available bit turns 1,
+            // an incoming message is waiting to be read
+            if (U1STA & 1)
+            {
+                // Receive until the
+                if (buf_index < 16)
+                {
+                    // Receive one byte from receive register
+                    unsigned int buf = U1RXREG;
+                    rec_buffer[buf_index] = buf;
+                    display_string(1, buf);
+                    display_string(2, rec_buffer);
+                    quicksleep(2500);
+                    display_update();
+                    buf_index++;
+                } else break;
+            }
+        }
+
+        display_string(0, "RECEIVED MSG");
+        display_string(1, "");
+        display_string(2, "");
+        display_string(3, "");
+        display_update();
+
+        // Get key from switches
+        int key = get_key();
+
+        strcpy(rec_buffer, decrypted_rec_msg);
+        decrypt(decrypted_rec_msg, key, MSG_MAX_LEN);
+
+        display_string(0, "RECEIVED MSG");
+        display_string(1, "");
+        display_string(2, "");
+        display_string(3, decrypted_rec_msg);
+        display_update();
+
+        // Pause until mode is switched
+        while (!get_state()) {};
 
         // If receiving, poll SPI buffer (maybe flash LED when a message is incoming)
         // Poll switches repeatedly to try decode using key
@@ -138,4 +194,8 @@ void work(void) {
 
     }
 
+}
+
+void strcpy(char *dst, char *src) {
+    while((*dst++ = *src++));
 }
