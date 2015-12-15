@@ -15,24 +15,7 @@ char rec_buffer[16];
 char decrypted_rec_msg[16];
 
 /* Interrupt Service Routine */
-void user_isr( void )
-{
-    // Example interrupt code
-    if (IFS(0) & 0x100)
-    {
-        IFSCLR(0) = 0x100;
-
-        display_string(0, "interrupt fired");
-        display_update();
-
-        /* if (timeoutcount == 10)
-        {
-          display_string( 3, "oppa" );
-          display_update();
-          timeoutcount = 0;
-        } */
-    }
-}
+void user_isr( void ) {}
 
 /* Lab-specific initialization goes here */
 void init(void) {
@@ -101,6 +84,29 @@ void work(void) {
 
         int buf_index = 0;
 
+        // Wait for incoming message
+        display_string(0, "WAITING4INC");
+        display_update();
+        while (!(U1STA & 1));
+
+        // Receive incoming message
+        int j;
+        for (j = 0; j < MSG_MAX_LEN; ++j) {
+            // Receive one byte from receive register
+            unsigned int buf = U1RXREG;
+            rec_buffer[j] = buf;
+            display_string(1, buf);
+            display_string(2, rec_buffer);
+            display_update();
+            quicksleep(50000);
+        }
+
+        // Vaska all jävla skit som är kvar i buffern
+        while (U1STA & 1) {
+            int vask = U1RXREG;
+        }
+
+        /*
         // Receive incoming message
         while (!get_state()) {
             // When Receive Buffer Data Available bit turns 1,
@@ -120,13 +126,15 @@ void work(void) {
                     buf_index++;
                 } else break;
             }
-        }
+            display_string(0, "IZ STUCK!!!");
+            display_update();
+        } */
 
         // Get key from switches
         int key = get_key();
 
         display_string(0, "RECEIVED MSG");
-        display_string(1, "");
+        display_string(1, itoaconv(U1STA & 1));
         display_string(2, rec_buffer);
 
         decrypt(&rec_buffer[0], key, MSG_MAX_LEN);
