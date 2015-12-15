@@ -8,6 +8,10 @@
 // Global constants
 #define MSG_MAX_LEN 16
 
+// Header definitions for app.c
+void transmit(void);
+void receive(void);
+
 // Header definitions for transmit.c and receive.c
 char msg[16];
 int transmitting = 0;

@@ -45,20 +45,10 @@ void config(void) {
 /* This function is called repetitively from the main program */
 void run(void) {
 
+    // If state is 0, board is in receive mode
     if (!get_state())
         receive();
     else
         transmit();
-
-    // If state is 0, board is in receive mode
-    if (!get_state()) {
-
-
-    } else {
-
-
-        }
-
-    }
 
 }
