@@ -165,9 +165,6 @@ void work(void) {
         } else {
 
             display_string(0, "TRANSMIT MODE");
-            display_string(1, "");
-            display_string(2, "");
-            display_string(3, "");
             display_update();
 
             // Check for state change or button event
