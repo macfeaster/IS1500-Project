@@ -8,6 +8,7 @@ int is_transmitting = 0;
 // Forward declarations
 void input_transmission_msg();
 void transmitting();
+void go_receive();
 
 /**
  * Transmit
@@ -27,7 +28,7 @@ void transmit() {
     transmitting();
 
     while(get_state());
-    receive();
+    go_receive();
 }
 
 void input_transmission_msg() {
@@ -37,7 +38,7 @@ void input_transmission_msg() {
 
     // Jump to receive is switch is flipped
     if (!get_state())
-        receive();
+        go_receive();
 
     // Don't redraw until a button is pressed, or the state is changed
     button_control(&is_transmitting, msg, &curr_char, &msg_pos, MSG_MAX_LEN);
@@ -75,4 +76,9 @@ void transmitting() {
     display_string(0, "MSG TRANSMITTED.");
     display_update();
 
+}
+
+void go_receive() {
+    transmission_clear(&curr_char, msg, &msg_pos, &is_transmitting);
+    receive();
 }

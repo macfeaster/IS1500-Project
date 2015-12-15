@@ -29,11 +29,11 @@ void msg_init(char* msg) {
 /**
  * Clear all transmission data
  */
-transmission_clear(char* curr_char, char* msg, int* msg_pos, int* transmitting) {
+void transmission_clear(char* curr_char, char* msg, int* msg_pos, int*is_transmitting) {
     // Reset transmission values
     *curr_char = (char) 32;
     *msg_pos = 0;
-    *transmitting = 0;
+    *is_transmitting = 0;
 
     msg_init(msg);
 }

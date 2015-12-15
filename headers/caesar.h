@@ -12,7 +12,8 @@
 void transmit(void);
 void receive(void);
 
-// Receive buffer
+// Header definitions for transmit.c
+void transmission_clear(char* curr_char, char* msg, int* msg_pos, int*is_transmitting);
 
 // Header definitions for lib/input.c
 int get_key(void);
