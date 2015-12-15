@@ -18,7 +18,10 @@ void receive(void);
 int get_key(void);
 int get_state(void);
 int get_btns(void);
+
+// Header definitions for lib/util.c
 void display_clear();
+void msg_init(char* msg);
 
 // Header definitions for lib/message.c
 void add_char(char *msg, char *curr_char, int *msg_pos, int msg_max_size);
