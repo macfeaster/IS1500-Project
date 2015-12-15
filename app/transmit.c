@@ -21,7 +21,7 @@ void transmit() {
 
     msg_init(msg);
 
-    while (get_btns() == 0 && !is_transmitting)
+    while (!is_transmitting)
         input_transmission_msg();
 
     transmitting();
@@ -34,6 +34,10 @@ void input_transmission_msg() {
 
     // Check for state change or button event
     while (get_btns() == 0 && get_state());
+
+    // Jump to receive is switch is flipped
+    if (!get_state())
+        receive();
 
     // Don't redraw until a button is pressed, or the state is changed
     button_control(&is_transmitting, msg, &curr_char, &msg_pos, MSG_MAX_LEN);

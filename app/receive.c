@@ -50,13 +50,5 @@ void read_buffer(char* out) {
         out[buf_index] = (char) buf;
         buf_index++;
 
-        display_clear();
-        display_string(0, itoaconv(buf));
-        display_string(1, itoaconv(buf_index));
-        display_string(2, rec_buffer);
-        display_update();
-
-        quicksleep(10000000);
-
     }
 }
