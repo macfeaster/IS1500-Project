@@ -102,7 +102,7 @@ void work(void) {
         int buf_index = 0;
 
         // Receive incoming message
-        while (1) {
+        while (!get_state()) {
             // When Receive Buffer Data Available bit turns 1,
             // an incoming message is waiting to be read
             if (U1STA & 1)
