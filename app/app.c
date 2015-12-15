@@ -7,7 +7,7 @@
 // Message buffer
 char msg[16];
 int transmitting = 0;
-char curr_char = (char) 65;
+char curr_char = (char) 32;
 int msg_pos = 0;
 
 /* Interrupt Service Routine */
@@ -71,7 +71,7 @@ void work(void) {
         display_update();
 
         // Reset transmission values
-        curr_char = (char) 65;
+        curr_char = (char) 32;
         msg_pos = 0;
         transmitting = 0;
 
