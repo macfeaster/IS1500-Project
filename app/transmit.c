@@ -65,8 +65,11 @@ void transmitting() {
     int i;
     for (i = 0; i < MSG_MAX_LEN; i++) {
         // Block until the buffer is available
-        while(U1STA & 0x0200);
+        while((U1STA & 0x0200) && get_state());
         U1TXREG = msg[i];
+
+        if (!get_state())
+            go_receive();
     }
 
     msg_pos = 0;
