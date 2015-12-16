@@ -50,6 +50,10 @@ void input_transmission_msg() {
     display_clear();
     display_string(1, msg);
     display_update();
+
+    if (msg_pos == 16) {
+        is_transmitting = 1;
+    }
 }
 
 void transmitting() {
